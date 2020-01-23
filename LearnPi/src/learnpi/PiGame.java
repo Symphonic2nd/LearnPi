@@ -121,26 +121,39 @@ public class PiGame extends JPanel{
             Font number = new Font(" ", 1, 15);
             window.setFont(number);
             window.setColor(Color.white);
-            window.drawString(input, 0, 45);
+            window.drawString(input, 1, 45);
+            window.drawString("" + input.length(), 1, 30);
         }
         
         if (stage == 2) {
             play = true;
             if (!input.equals(pi.substring(0, score))) {
-                lost = true;
+                if (input.length() > score && input.equals(pi.substring(0, input.length()))) {
+                    score = input.length();
+                }
+                else {
+                    lost = true;
+                }
             }
             input = "";
-            for (int i = 0; i < score; i++) {
-                input += "_";
-            }
             stage = 0;
         }
         
-        if (lost) {
+        if (lost) {            
+            window.setColor(Color.BLACK);
+            window.fillRect(0, 0, 1600, 850);
             Font number = new Font(" ", 70, 15);
             window.setFont(number);
             window.setColor(Color.green);
-            window.drawString("Good job!  You recited " + score + " digits", 0, 15);
+            if (score == 1) {
+               window.drawString("Um... do you have short term memory loss?  You can't remember even one.  It's 3", 0, 15); 
+            }
+            else if (score == 2) {
+                window.drawString("Good job!  You recited one digit correctly!", 0, 15);
+            }
+            else {
+                window.drawString("Good job!  You recited " + (score - 1) + " digits correctly!", 0, 15);
+            }
         }
         repaint();
     }
