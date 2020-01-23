@@ -60,7 +60,9 @@ public class PiGame extends JPanel{
                             input += ".";
                         }
                         else if (e.getKeyCode() == 8) {
-                            input = input.substring(0, input.length() - 1);
+                            if (input.length() > 0) {
+                                input = input.substring(0, input.length() - 1);
+                            }
                         }
                         else {
                             input += "" + (e.getKeyCode() - 48);
